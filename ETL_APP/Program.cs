@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using HtmlAgilityPack;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -33,14 +34,26 @@ namespace ETL_APP
 
         static async void DownloadPageAsync()
         {
+            var doc = new HtmlDocument();
             string url = config["url"];
+
 
             using (HttpClient client = new HttpClient())
             using (HttpResponseMessage response = await client.GetAsync(url))
             using (HttpContent content = response.Content)
             {
                 string result = await content.ReadAsStringAsync();
-                
+                doc.LoadHtml(result);
+
+                var MAGNUM = doc.DocumentNode
+                .SelectNodes("/html/body/div[3]/div[3]/div[1]");
+
+                var DAMACAI = doc.DocumentNode
+                .SelectNodes("/html/body/div[3]/div[3]/div[2]");
+
+                var TOTO = doc.DocumentNode
+                .SelectNodes("/html/body/div[3]/div[3]/div[3]");
+
                 //Console.WriteLine(result);
             }
         }
