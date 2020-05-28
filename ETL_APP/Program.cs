@@ -46,7 +46,9 @@ namespace ETL_APP
                 doc.LoadHtml(result);
 
                 var MAGNUM = doc.DocumentNode
-                .SelectNodes("/html/body/div[3]/div[3]/div[1]");
+                .SelectNodes("/html/body/div[3]/div[3]/div[1]/div");
+
+                var x = MAGNUM.Descendants();
 
                 var DAMACAI = doc.DocumentNode
                 .SelectNodes("/html/body/div[3]/div[3]/div[2]");
